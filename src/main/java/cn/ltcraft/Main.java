@@ -107,7 +107,7 @@ class Main extends PluginBase {
         rcons.clear();
     }
     public void checkSample(){
-        File file = new File(getDataFolder().getPath()+"/exampleyml");
+        File file = new File(getDataFolder().getPath()+"/example.yml");
         if (!file.exists()){
             InputStream inputStream = getResources("example.yml");
             OutputStream outputStream = null;
