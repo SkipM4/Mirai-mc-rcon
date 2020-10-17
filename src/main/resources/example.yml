@@ -1,9 +1,8 @@
-#Rcon服务器地址 如：
+#Minecraft服务器地址
 serverAddr: 127.0.0.1
-#Rcon服务器端口 如：
+#Rcon端口
 serverPort: 25575
-#Rcon服务器密码 如：
+#Rcon密码
 password: 123456
-#是pe服务器吗 如果是填写true
-#没什么用 只不过是取出颜色符号
+#是否为pe服务器
 isPe: true
