@@ -19,10 +19,9 @@ class Main extends PluginBase {
 
     public void onLoad(){
         defaultList = new LinkedList<Long>();
-        defaultList.add(123456L);
+        defaultList.add(123456);
         defaultPrefixes = new ArrayList<>();
-        defaultPrefixes.add("\\");
-        defaultPrefixes.add("#");
+        defaultPrefixes.add("sudo ");
         checkSample();
         loadConfigFiles();
         super.onLoad();
@@ -39,7 +38,7 @@ class Main extends PluginBase {
         load();
         Listener listener = new Listener(this);
         JCommandManager.getInstance().register(this, new BlockingCommand(
-                "rcon", new ArrayList<>(),"rcon插件命令","/rcon [add]或[remove]"
+                "rcon", new ArrayList<>(),"rcon插件指令","/rcon <add/remove>"
         ) {
             @Override
             public boolean onCommandBlocking(@NotNull CommandSender commandSender, @NotNull List<String> list) {
@@ -63,7 +62,7 @@ class Main extends PluginBase {
                         config.setIfAbsent("canPerform", defaultList);
                         config.setIfAbsent("prefixes", defaultPrefixes);
                         config.save();
-                        commandSender.sendMessageBlocking("添加成功,请去plugins/Rcon/"+groupID+".yml 修改配置,然后/rcon reload 重载配置");
+                        commandSender.sendMessageBlocking("添加成功,请修改plugins/Rcon/"+groupID+".yml,并重载本插件或重启Mirai");
                     break;
                     case "reload":
                         loadConfigFiles();
@@ -108,9 +107,9 @@ class Main extends PluginBase {
         rcons.clear();
     }
     public void checkSample(){
-        File file = new File(getDataFolder().getPath()+"/示例.yml");
+        File file = new File(getDataFolder().getPath()+"/exampleyml");
         if (!file.exists()){
-            InputStream inputStream = getResources("示例.yml");
+            InputStream inputStream = getResources("example.yml");
             OutputStream outputStream = null;
             try {
                 outputStream = new DataOutputStream(new FileOutputStream(file));
@@ -145,17 +144,17 @@ class Main extends PluginBase {
                 }
                 rcons.put(groupID, rcon);
             }else{
-                getLogger().info(groupID+"配置文件错误!");
+                getLogger().info(groupID+"配置文件似乎格式不对呢!");
             }
         }
     }
     public Rcon connected(Config config){
         try {
-            getLogger().info("连接"+config.getString("serverAddr")+":"+config.getInt("serverPort")+"...");
+            getLogger().info("尝试连接"+config.getString("serverAddr")+":"+config.getInt("serverPort")+"中...");
             Rcon rcon = new Rcon(config);
             return rcon;
         } catch (IOException| AuthenticationException e) {
-            getLogger().info("连接"+config.getString("serverAddr")+":"+config.getInt("serverPort")+"失败！请检查密码和服务器地址连通性。");
+            getLogger().info("没能连接上"+config.getString("serverAddr")+":"+config.getInt("serverPort")+"呢!再检查一下配置文件吧!");
             e.printStackTrace();
             return null;
         }
@@ -167,7 +166,7 @@ class Main extends PluginBase {
         Config config;
         //不懂 为什么不能Config.load(new File())
         for(File f:fs){
-            if(!f.isDirectory() && f.getName().endsWith(".yml") && !f.getName().equals("示例.yml")){
+            if(!f.isDirectory() && f.getName().endsWith(".yml") && !f.getName().equals("example.yml")){
                 config = loadConfig(f.getName());
                 if (config!=null) {
                     String fileName = f.getName();

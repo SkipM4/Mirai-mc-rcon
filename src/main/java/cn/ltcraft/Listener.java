@@ -26,7 +26,7 @@ public class Listener {
                         try {
                             event.getSubject().sendMessage(this.plugin.command(message, rcon));
                         } catch (IOException e) {
-                            this.plugin.getLogger().info("重新连接" + rcon.getConfig().getString("serverAddr") + ":" + rcon.getConfig().getInt("serverPort") + "...");
+                            this.plugin.getLogger().info("正在尝试重连" + rcon.getConfig().getString("serverAddr") + ":" + rcon.getConfig().getInt("serverPort") + "中...");
                             try {
                                 rcon.disconnect();
                             } catch (IOException ex) {
@@ -34,14 +34,14 @@ public class Listener {
                             }
                             Rcon rcon1 = this.plugin.connected(rcon.getConfig());
                             if (rcon1 == null) {
-                                event.getSubject().sendMessage("连接Rcon服务器失败！请检查密码和服务器地址连通性。");
+                                event.getSubject().sendMessage("没能连接上服务器RCON呢!再检查一下配置文件吧!");
                             } else {
                                 try {
                                     this.plugin.getRcon().put(event.getGroup().getId(), rcon1);
                                     event.getSubject().sendMessage(this.plugin.command(message, rcon1));
                                 } catch (IOException e2) {
                                     e2.printStackTrace();
-                                    event.getSubject().sendMessage("执行失败！");
+                                    event.getSubject().sendMessage("指令执行失败了呢!");
                                 }
                             }
                         }
