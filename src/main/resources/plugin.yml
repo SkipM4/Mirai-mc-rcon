@@ -2,5 +2,5 @@ name: "RCON"
 author: "Angel、"
 version: "1.1.1"
 main: "cn.ltcraft.Main"
-info: "在QQ上使用rcon协议远程管理Minecraft服务器"
+info: "在QQ上使用Rcon协议管理Minecraft服务器"
 depends: []

@@ -4,5 +4,5 @@ serverAddr: 127.0.0.1
 serverPort: 25575
 #Rcon密码
 password: 123456
-#是否为pe服务器
+#是否为PE服务器
 isPe: true
